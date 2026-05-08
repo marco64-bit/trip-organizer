@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+/// A screen that allows users to authenticate using their email and password.
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -9,13 +10,19 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  /// Whether the "Remember Me" checkbox is checked.
   bool isChecked = false;
 
+  /// Controllers for handling email and password input.
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  /// Indicates whether an authentication request is currently in progress.
   bool isLoading = false;
 
+  /// Attempts to sign in the user with the provided email and password.
+  /// 
+  /// Navigates to the main navigation screen on success or shows an error message on failure.
   Future<void> login() async {
     setState(() {
       isLoading = true;
@@ -27,16 +34,22 @@ class _LoginScreenState extends State<LoginScreen> {
         password: passwordController.text.trim(),
       );
 
-      Navigator.pushReplacementNamed(context, '/bottom_nav');
+      if (context.mounted) {
+        Navigator.pushReplacementNamed(context, '/bottom_nav');
+      }
     } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("Login Failed: $e")));
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Login Failed: $e")),
+        );
+      }
     }
 
-    setState(() {
-      isLoading = false;
-    });
+    if (mounted) {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -66,6 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             const SizedBox(height: 20),
 
+            /// Branding or profile placeholder image.
             Center(
               child: Image.asset(
                 "lib/assets/profile.png",
@@ -74,6 +88,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             const SizedBox(height: 20),
+
+            /// Email input field.
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
@@ -89,6 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
             const SizedBox(height: 20),
 
+            /// Password input field.
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
@@ -104,38 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
             const SizedBox(height: 20),
 
-            //
-            // Row(
-            //   children: [
-            //     Checkbox(
-            //       value: isChecked,
-            //       onChanged: (value) {
-            //         setState(() {
-            //           isChecked = value!;
-            //         });
-            //       },
-            //     ),
-            //     const Text("Remember Me", style: TextStyle(fontSize: 18)),
-            //   ],
-            // ),
-            //
-            // Divider(
-            //   thickness: 3,
-            //   color: Colors.deepOrange,
-            //   indent: 70,
-            //   endIndent: 70,
-            // ),
-            //
-            // Text(
-            //   isChecked ? "ON" : "OFF",
-            //   style: TextStyle(
-            //     color: isChecked ? Colors.green : Colors.red,
-            //     fontSize: 25,
-            //     fontWeight: FontWeight.bold,
-            //   ),
-            // ),
-            //
-            // const SizedBox(height: 20),
+            /// Login button or loading indicator.
             isLoading
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
@@ -153,12 +139,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
-            SizedBox(height: 10),
+            
+            const SizedBox(height: 10),
+
+            /// Link to navigate to the registration screen.
             TextButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/register_screen');
               },
-              child: Text(
+              child: const Text(
                 "Create New Account",
                 style: TextStyle(
                   color: Colors.black,
