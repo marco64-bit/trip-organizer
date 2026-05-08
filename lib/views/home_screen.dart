@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trip_organizer/views/app_bar_component.dart';
-
+import 'app_drawer.dart';
+import 'bottom_nav.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -103,9 +104,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: getAppBar(context, "Home"),
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
+
+
         child: Container(
           color: Color(0xFFf7f9fc),
           child: Padding(
@@ -245,7 +246,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-      ),
+
+
     );
   }
 }

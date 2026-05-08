@@ -61,112 +61,114 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 20),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
 
-          Center(
-            child: Image.asset(
-              "lib/assets/profile.png",
-              width: 200,
-              height: 200,
-            ),
-          ),
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextFormField(
-              controller: emailController,
-              keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
-                labelText: "Email",
-                prefixIcon: Icon(Icons.email),
-                border: OutlineInputBorder(),
+            Center(
+              child: Image.asset(
+                "lib/assets/profile.png",
+                width: 200,
+                height: 200,
               ),
             ),
-          ),
-
-          const SizedBox(height: 20),
-
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              controller: passwordController,
-              obscureText: true,
-              decoration: const InputDecoration(
-                labelText: "Password",
-                prefixIcon: Icon(Icons.lock),
-                border: OutlineInputBorder(),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextFormField(
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  labelText: "Email",
+                  prefixIcon: Icon(Icons.email),
+                  border: OutlineInputBorder(),
+                ),
               ),
             ),
-          ),
 
-          const SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-          //
-          // Row(
-          //   children: [
-          //     Checkbox(
-          //       value: isChecked,
-          //       onChanged: (value) {
-          //         setState(() {
-          //           isChecked = value!;
-          //         });
-          //       },
-          //     ),
-          //     const Text("Remember Me", style: TextStyle(fontSize: 18)),
-          //   ],
-          // ),
-          //
-          // Divider(
-          //   thickness: 3,
-          //   color: Colors.deepOrange,
-          //   indent: 70,
-          //   endIndent: 70,
-          // ),
-          //
-          // Text(
-          //   isChecked ? "ON" : "OFF",
-          //   style: TextStyle(
-          //     color: isChecked ? Colors.green : Colors.red,
-          //     fontSize: 25,
-          //     fontWeight: FontWeight.bold,
-          //   ),
-          // ),
-          //
-          // const SizedBox(height: 20),
-          isLoading
-              ? const CircularProgressIndicator()
-              : ElevatedButton(
-                  onPressed: login,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple,
-                    foregroundColor: Colors.white,
-                    minimumSize: const Size(200, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: "Password",
+                  prefixIcon: Icon(Icons.lock),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            //
+            // Row(
+            //   children: [
+            //     Checkbox(
+            //       value: isChecked,
+            //       onChanged: (value) {
+            //         setState(() {
+            //           isChecked = value!;
+            //         });
+            //       },
+            //     ),
+            //     const Text("Remember Me", style: TextStyle(fontSize: 18)),
+            //   ],
+            // ),
+            //
+            // Divider(
+            //   thickness: 3,
+            //   color: Colors.deepOrange,
+            //   indent: 70,
+            //   endIndent: 70,
+            // ),
+            //
+            // Text(
+            //   isChecked ? "ON" : "OFF",
+            //   style: TextStyle(
+            //     color: isChecked ? Colors.green : Colors.red,
+            //     fontSize: 25,
+            //     fontWeight: FontWeight.bold,
+            //   ),
+            // ),
+            //
+            // const SizedBox(height: 20),
+            isLoading
+                ? const CircularProgressIndicator()
+                : ElevatedButton(
+                    onPressed: login,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepPurple,
+                      foregroundColor: Colors.white,
+                      minimumSize: const Size(200, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    child: const Text(
+                      "Login",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  child: const Text(
-                    "Login",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
+            SizedBox(height: 10),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/register_screen');
+              },
+              child: Text(
+                "Create New Account",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
                 ),
-          SizedBox(height: 10),
-          TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/register_screen');
-            },
-            child: Text(
-              "Create New Account",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
