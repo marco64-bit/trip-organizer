@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 /// A custom side drawer that provides navigation and user account information.
 class AppDrawer extends StatelessWidget {
-
   /// Callback function triggered when a navigation item is selected.
   /// The integer parameter represents the index of the selected screen.
   final Function(int) onItemSelected;
@@ -13,6 +12,36 @@ class AppDrawer extends StatelessWidget {
     super.key,
     required this.onItemSelected,
   });
+
+  /// Displays a confirmation dialog before logging out the user.
+  Future<void> _showLogoutDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Logout'),
+          content: const Text('Are you sure you want to log out?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Logout', style: TextStyle(color: Colors.red)),
+              onPressed: () async {
+                final navigator = Navigator.of(context);
+                await FirebaseAuth.instance.signOut();
+                navigator.pushNamedAndRemoveUntil('/', (route) => false);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,23 +101,14 @@ class AppDrawer extends StatelessWidget {
 
           const Divider(),
 
-          /// Logout item that signs out the user and navigates to the login screen.
+          /// Logout item that triggers a confirmation dialog.
           ListTile(
             leading: const Icon(Icons.logout, color: Colors.red),
             title: const Text(
               "Logout",
               style: TextStyle(color: Colors.red),
             ),
-            onTap: () async {
-              await FirebaseAuth.instance.signOut();
-              if (context.mounted) {
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  '/',
-                  (route) => false,
-                );
-              }
-            },
+            onTap: () => _showLogoutDialog(context),
           ),
         ],
       ),

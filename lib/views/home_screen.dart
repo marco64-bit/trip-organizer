@@ -14,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   /// Builds a reusable card widget to display trip details.
-  /// 
+  ///
   /// [title] is the name of the trip.
   /// [location] is the trip destination.
   /// [dateRange] is a formatted string of the trip's start and end dates.
@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            
+
             /// Trip information section (Title, Location, Date).
             Padding(
               padding: const EdgeInsets.all(12.0),
@@ -86,12 +86,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Row(
                     children: [
-                      const Icon(Icons.map_outlined, size: 16, color: Colors.grey),
+                      const Icon(
+                        Icons.map_outlined,
+                        size: 16,
+                        color: Colors.grey,
+                      ),
                       const SizedBox(width: 4),
                       Text(location, style: TextStyle(color: Colors.grey[600])),
                     ],
@@ -99,7 +106,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   const Divider(height: 24),
                   Row(
                     children: [
-                      const Icon(Icons.calendar_month, size: 16, color: Colors.grey),
+                      const Icon(
+                        Icons.calendar_month,
+                        size: 16,
+                        color: Colors.grey,
+                      ),
                       const SizedBox(width: 4),
                       Text(
                         dateRange,
@@ -124,10 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         color: const Color(0xFFf7f9fc),
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16.0,
-            vertical: 8.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -142,10 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 10),
               const Text(
                 "Explore the World",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 40,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
               ),
               const SizedBox(height: 20),
 

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trip_organizer/views/app_bar_component.dart';
 import 'package:trip_organizer/views/app_drawer.dart';
+import 'package:trip_organizer/views/budget_screen.dart';
 import 'package:trip_organizer/views/create_trip_screen.dart';
 import 'package:trip_organizer/views/home_screen.dart';
 import 'package:trip_organizer/views/profile_screen.dart';
@@ -26,7 +27,7 @@ class _BottomNavState extends State<BottomNav> {
     const HomeScreen(),
     CreateTripScreen(userId: _userId),
     const Center(child: Text("Itinerary")),
-    const Center(child: Text("Budget")),
+    const BudgetScreen(),
     const ProfileScreen(),
   ];
 

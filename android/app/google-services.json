@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "642988564661",
-    "project_id": "my-trip-project-e18c7",
-    "storage_bucket": "my-trip-project-e18c7.firebasestorage.app"
+    "project_number": "1043782496674",
+    "project_id": "my-trip-project-e18c8",
+    "storage_bucket": "my-trip-project-e18c8.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:642988564661:android:698bed4d846532221b1efc",
+        "mobilesdk_app_id": "1:1043782496674:android:e68e467d2df8b9852d82fb",
         "android_client_info": {
           "package_name": "com.example.trip_organizer"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDubk0_41tr6KHj0dyl2sVqFg7Wi0zVMlY"
+          "current_key": "AIzaSyDshjN3xDlfYzbtl7mZ5xug-twD1Hj8ohY"
         }
       ],
       "services": {
