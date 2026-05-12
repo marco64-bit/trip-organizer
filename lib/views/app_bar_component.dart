@@ -12,11 +12,5 @@ PreferredSizeWidget getAppBar(BuildContext context, String title) {
       style: const TextStyle(color: Color(0xFF1d4ed8), fontWeight: FontWeight.bold),
     ),
     centerTitle: true,
-    actions: const [
-      Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Icon(Icons.explore, color: Color(0xFF3852b1)),
-      ),
-    ],
   );
 }
