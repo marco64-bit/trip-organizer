@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../models/expense_model.dart';
 import '../models/trip_model.dart'; // Import your model
 
 class DatabaseService {
@@ -27,6 +28,34 @@ class DatabaseService {
         .map(
           (snapshot) => snapshot.docs
               .map((doc) => Trip.fromFirestore(doc.data(), doc.id))
+              .toList(),
+        );
+  }
+
+  // 3. ADD AN EXPENSE
+  Future<void> addExpense(String tripId, Expense expense) async {
+    await _db
+        .collection('users')
+        .doc(userId)
+        .collection('trips')
+        .doc(tripId)
+        .collection('expenses')
+        .add(expense.toFirestore());
+  }
+
+  // 4. GET ALL EXPENSES FOR A TRIP
+  Stream<List<Expense>> streamExpenses(String tripId) {
+    return _db
+        .collection('users')
+        .doc(userId)
+        .collection('trips')
+        .doc(tripId)
+        .collection('expenses')
+        .orderBy('date', descending: true)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map((doc) => Expense.fromFirestore(doc.data(), doc.id))
               .toList(),
         );
   }
