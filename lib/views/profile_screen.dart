@@ -309,18 +309,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             }),
                             const Divider(height: 1),
                             _buildMenuOption(
-                              "Notifications",
-                              Icons.notifications,
-                              () {},
-                            ),
-                            const Divider(height: 1),
-                            _buildMenuOption(
-                              "Privacy Policy",
-                              Icons.privacy_tip,
-                              () {},
-                            ),
-                            const Divider(height: 1),
-                            _buildMenuOption(
                               "Logout",
                               Icons.logout,
                               _showLogoutDialog,

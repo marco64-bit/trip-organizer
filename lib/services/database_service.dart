@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../models/activity_model.dart';
 import '../models/expense_model.dart';
 import '../models/trip_model.dart'; // Import your model
 
@@ -56,6 +57,34 @@ class DatabaseService {
         .map(
           (snapshot) => snapshot.docs
               .map((doc) => Expense.fromFirestore(doc.data(), doc.id))
+              .toList(),
+        );
+  }
+
+  // 5. ADD AN ACTIVITY
+  Future<void> addActivity(String tripId, Activity activity) async {
+    await _db
+        .collection('users')
+        .doc(userId)
+        .collection('trips')
+        .doc(tripId)
+        .collection('activities')
+        .add(activity.toFirestore());
+  }
+
+  // 6. GET ALL ACTIVITIES FOR A TRIP
+  Stream<List<Activity>> streamActivities(String tripId) {
+    return _db
+        .collection('users')
+        .doc(userId)
+        .collection('trips')
+        .doc(tripId)
+        .collection('activities')
+        .orderBy('time', descending: false)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map((doc) => Activity.fromFirestore(doc.data(), doc.id))
               .toList(),
         );
   }

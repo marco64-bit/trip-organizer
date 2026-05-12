@@ -5,6 +5,7 @@ import 'package:trip_organizer/views/app_drawer.dart';
 import 'package:trip_organizer/views/budget_screen.dart';
 import 'package:trip_organizer/views/create_trip_screen.dart';
 import 'package:trip_organizer/views/home_screen.dart';
+import 'package:trip_organizer/views/itinerary_screen.dart';
 import 'package:trip_organizer/views/profile_screen.dart';
 
 /// The main navigation hub of the application that manages a [Scaffold] with a bottom bar.
@@ -26,7 +27,7 @@ class _BottomNavState extends State<BottomNav> {
   late final List<Widget> _screens = [
     const HomeScreen(),
     CreateTripScreen(userId: _userId),
-    const Center(child: Text("Itinerary")),
+    ItineraryScreen(userId: _userId),
     BudgetScreen(userId: _userId),
     const ProfileScreen(),
   ];

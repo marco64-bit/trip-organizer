@@ -41,4 +41,6 @@ class Trip {
       'coverImageUrl': coverImageUrl,
     };
   }
+
+
 }
