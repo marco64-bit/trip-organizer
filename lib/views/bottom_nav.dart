@@ -27,7 +27,7 @@ class _BottomNavState extends State<BottomNav> {
     const HomeScreen(),
     CreateTripScreen(userId: _userId),
     const Center(child: Text("Itinerary")),
-    const BudgetScreen(),
+    BudgetScreen(userId: _userId),
     const ProfileScreen(),
   ];
 

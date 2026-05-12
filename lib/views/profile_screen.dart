@@ -23,6 +23,70 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return doc.data();
   }
 
+  /// Updates the user's full name in Firestore.
+  Future<void> _updateName(String newName) async {
+    if (user == null || newName.isEmpty) return;
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user!.uid)
+          .update({'fullName': newName});
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Name updated successfully!")),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error updating name: $e")),
+        );
+      }
+    }
+  }
+
+  /// Displays a dialog to edit the user's full name.
+  Future<void> _showEditNameDialog(String currentName) async {
+    final TextEditingController nameController =
+        TextEditingController(text: currentName);
+
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Edit Name'),
+          content: TextField(
+            controller: nameController,
+            decoration: const InputDecoration(
+              labelText: "Full Name",
+              hintText: "Enter your full name",
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final newName = nameController.text.trim();
+                if (newName.isNotEmpty) {
+                  await _updateName(newName);
+                  if (mounted) {
+                    Navigator.pop(context);
+                    setState(() {}); // Refresh to show new data
+                  }
+                }
+              },
+              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF1d4ed8)),
+              child: const Text('Save', style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   /// Displays a confirmation dialog before logging out the user.
   Future<void> _showLogoutDialog() async {
     return showDialog<void>(
@@ -240,7 +304,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         child: Column(
                           children: [
-                            _buildMenuOption("Edit Profile", Icons.edit, () {}),
+                            _buildMenuOption("Edit Profile", Icons.edit, () {
+                              _showEditNameDialog(fullName);
+                            }),
                             const Divider(height: 1),
                             _buildMenuOption(
                               "Notifications",

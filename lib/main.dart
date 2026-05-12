@@ -20,9 +20,7 @@ void main() async {
         '/': (context) => const LoginScreen(),
         '/register_screen': (context) => const RegisterScreen(),
         '/bottom_nav': (context) => const BottomNav(),
-        '/create_trip_screen': (context) => const CreateTripScreen(userId: '',),
         '/profile_screen': (context) => const ProfileScreen(),
-        '/budget_screen': (context) => const BudgetScreen(),
       },
     ),
   );

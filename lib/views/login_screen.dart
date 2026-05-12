@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isLoading = false;
 
   /// Attempts to sign in the user with the provided email and password.
-  /// 
+  ///
   /// Navigates to the main navigation screen on success or shows an error message on failure.
   Future<void> login() async {
     setState(() {
@@ -37,14 +37,39 @@ class _LoginScreenState extends State<LoginScreen> {
       if (context.mounted) {
         Navigator.pushReplacementNamed(context, '/bottom_nav');
       }
-    } catch (e) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Login Failed: $e")),
-        );
-      }
-    }
+    } on FirebaseAuthException catch (e) {
+      String message = "";
 
+      if (e.code == 'user-not-found') {
+        message = "No user found with this email";
+      } else if (e.code == 'wrong-password') {
+        message = "Wrong password";
+      } else if (e.code == 'invalid-email') {
+        message = "Invalid email format";
+      } else if (e.code == 'invalid-credential') {
+        message = "Email or password is incorrect";
+      } else {
+        message = "Login failed, please try again";
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message, style: const TextStyle(fontSize: 16)),
+
+          backgroundColor: Colors.red,
+
+          behavior: SnackBarBehavior.floating,
+
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+
+          margin: const EdgeInsets.all(15),
+
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    }
     if (mounted) {
       setState(() {
         isLoading = false;
@@ -136,10 +161,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     child: const Text(
                       "Login",
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-            
+
             const SizedBox(height: 10),
 
             /// Link to navigate to the registration screen.
